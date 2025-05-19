@@ -1,4 +1,5 @@
-from fastapi import APIRouter , status , Response
+from routers.blog_post import requestt
+from fastapi import APIRouter , status , Response , Depends
 from enum import Enum
 from typing import Optional
 
@@ -49,10 +50,10 @@ def get_all_blog(id: int , commit_Id : int , valid : bool = True , username :Opt
            tags= ['isn' ,'YTy'] ,
           summary="this is to try summary"
           , description="i want to try also the description of the parameters" )
-def GetIsmailId(id : int , response : Response):
+def GetIsmailId(id : int , response : Response , requestt: dict = Depends(requestt)):
     if id > 5 : 
         response.status_code = status.HTTP_404_NOT_FOUND
-        return {f"Id  {id} is not found"}
+        return {f"Id  {id} is not found" ,"Req: : {requestt}"}
     else: 
          response.status_code = status.HTTP_200_OK
          return {f"id {id} is found"}
